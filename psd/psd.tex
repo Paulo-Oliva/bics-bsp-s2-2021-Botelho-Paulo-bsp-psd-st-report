@@ -76,77 +76,52 @@ The Bachelor Semester Project is about finding important sentences in a text. Th
 
 \section{Prerequisites}
 
-The only required competency before starting to work on this Bachelor Semester Project is possessing knowledge of the JavaScript programming language.
+The only required competency before starting to work on this Bachelor Semester Project is possessing enough knowledge about Web Technologies, such as HTML and the JavaScript programming language.
 
 
-\section{ Scientific Deliverable Description}
-\label{sec-production}
+\section{Scientific Deliverable Description}
+
 The following questions should be answered in the scientific deliverable of this project:\\
-
-\textbf{How can we automatically detect text blocks (groups of paragraphs) on a web page?}\\
 
 \textbf{How can we identify the most important sentences within a text block?}\\
 
-In the scientific deliverable of this project, the answer to these two question is given in more detail.
+\textbf{How can we automatically detect text blocks on a web page?}\\
 
-Before answering these questions, the concept of automatic text summarization needs to be explained. The technique of computationally shortening a text to generate a summary that contains the most significant or relevant information within the original content is known as automatic text summarization.
+To answer the first question, the concept of automatic text summarization needs to be explained in the scientific deliverable.
+Automatic text summarization is the technique of creating a shorter version of a text using a computer. This shorter version of the text, the summary, contains the most relevant information of the original text.
+
+Automatic text summarizing methods are desperately needed to deal with the ever-increasing volume of text data available online, both to help identify relevant information and to consume relevant information more quickly. There are many reasons why one would need automatic text summarization. For example, summaries reduce reading time and should be less biased than summaries made by a human person, according to \cite{torres2014automatic}.
 
 In general, there are two main kinds of text summarization techniques, extractive text summarization and abstractive text summarization. Extractive text summarization consists in selecting the most important parts of a text and extracting them to create a shorter summary of the same text. Abstractive text summarization consists in gathering the main ideas of a text and using those abstract ideas to generate a summary of the text, where the summary isn't just a copy of the old text, but actual new sentences.
 
-The main issue with the first question is that automatic text detection is not reliable. Since all webpages are different, detecting blocks of text can be a hard task. For that reason, this BSP focuses on reliably detecting the main text of a WordPress webpage.
+The scientific deliverable of this project focuses on extractive text summarization, as it is the technique we use in the technical deliverable. There exist many approaches for extractive text summarization, like statistical approaches, lexical chain based approaches, graph-based approaches, cluster-based approaches and fuzzy logic based approaches.
 
-Basically, WordPress structures its webpages using a predefined hierarchy based on themes and common class names for the HTML elements. Thus, to reliably be able to detect text blocks on a WordPress webpage, it suffices to find the most common classes used on WordPress to define the main content of the webpage.
+Moreover, to answer the first question, we are focusing on graph-based text summarization, as it commonly used by many algorithms to classify text in order of importance. For example, Google's PageRank is a graph-based ranking algorithm used by Google to rank webpages on Google. This algorithm is the basis of other well-known graph-based text summarization algorithms, like TextRank and LexRank.
 
-As for the second question, to identify the most important sentences within a text block, extractive text summarization techniques can be used. To answer this question more thoroughly, the topic of extractive text summarization needs to be addressed more in depth and different extractive text summarization algorithms are studied.
+The graph-based method of text summarization is an unsupervised technique in which sentences or words are scored using a graph. The basic goal of the graph-based method is to extract the most essential sentences from a single source. Thus, the scientific deliverable focuses on explaining how graph-based algorithms work to identify the most important sentences in a block. 
+
+Then, to answer the second question, the notion of text blocks should be explained. Text blocks in a webpage are simply multiple paragraphs grouped together. Usually, one would want to select the most important text blocks in a webpage, the main content, and not unimportant text context, such as the text in the header or footer of a webpage.
+
+The main issue with the second question is that automatic text detection is not reliable. Since all webpages are different, detecting blocks of text can be a hard task, as different websites have different structures. The scientific deliverable of this project studies this question more thoroughly as there does not seem to be a trivial solution to this question.
 
 
+\section{Technical Deliverable Description}
 
-\section{ Technical Deliverable Description}
+The technical deliverable of this project focuses on creating a browser extension that detects the most important sentences on a specific web page. 
 
-The technical deliverable of this project focuses on creating a browser extension that detects the most important sentences on a specific web page. The extension is to be built using JavaScript and should work in both Google Chrome and Firefox browsers, without breaking the functionality of existing websites.
+A browser extension is a small software package that adds features and functions to a browser. Extensions are built using well-known web technologies such as HTML, CSS, and JavaScript. Extensions possess their own set of APIs varying with the browser, which, for example, enables them to change the browser's default behaviours or access a webpage's content.
 
-The extension should allow the user to automatically highlight the most important sentences of an article in a specific webpage, if that webpage is built using WordPress. If the extension cannot find text or the page was not built using WordPress, the extension allows the user to select a block of text from the webpage to highlight text from. A JavaScript text summarization library called Summary.js is used to obtain the most important sentences from a block of text using an extractive text summarization algorithm.
-
-The most essential functions of the extension are: a function that returns the main text content in a WordPress webpage, a function that generates a text summary using Summary.js, and a function that highlights the text in a webpage based on the sentences contained in the summary generated previously. For the first function, the querySelectorAll() is used to find all the text paragraphs matching certain classes based on different WordPress page content class definitions.
+The extension should be built using JavaScript and should work on Google Chrome browsers, without breaking the functionality of existing websites. The extension should allow the user to automatically highlight the most important sentences of an article or blog post in a specific webpage. 
 
 The point of the technical work is to implement text summarization techniques in a browser environment, while creating a simple extension that is easy to use and that works on most of the WordPress websites.
 
 
 % references section
+\nocite{bics-bsp-reference-document}
+\nocite{bics-bsp-report-template}
+\bibliographystyle{IEEEtran}
+\bibliography{references}
 
-\begin{thebibliography}{1}
-
-	\bibitem[BiCS(2021)]{bics-bsp-report-template}
-	\newblock {BiCS Bachelor Semester Project Report Template}.
-	\newblock {https://github.com/nicolasguelfi/lu.uni.course.bics.global}
-	\newblock {University of Luxembourg, BiCS - Bachelor in Computer Science (2021).}
-
-	\bibitem[BiCS(2021)] {bics-bsp-reference-document}
-	{Bachelor in Computer Science}:
-	\newblock {BiCS Semester Projects Reference Document}.
-	\newblock Technical report, University of Luxembourg (2021)
-
-	\bibitem[Armstrong and Green(2017)]{armstrong2017guidelinesforscience}
-	J~Scott Armstrong and Kesten~C Green.
-	\newblock Guidelines for science: Evidence and checklists.
-	\newblock \emph{Scholarly Commons}, pages 1--24, 2017.
-	\newblock {https://repository.upenn.edu/marketing\textunderscore papers/181/}
-
-	% \bibitem[Lassaad Ben Ammar(2019)]{usability-model-lassaad}
-	% Lassaad Ben Ammar.
-	% \newblock A Usability Model for Mobile Applications Generated
-	% with a Model-Driven Approach.
-	% \newblock \emph{IJACSA}, Vol. 10, No. 2, 2019.
-	% \newblock {https://pdfs.semanticscholar.org/c6e4/97ce4e14f89d68cd2ca44a9da6645666ea57.pdf}
-
-	% \bibitem[J. Nielsen(1993)]{usability-engineering}
-	% J. Nielsen.
-	% \newblock Usability Engineering.
-	% \newblock \emph{Morgan Kaufmann Publishers Inc.}, 358 1993
-
-
-
-\end{thebibliography}
 % that's all folks
 \end{document}
 
