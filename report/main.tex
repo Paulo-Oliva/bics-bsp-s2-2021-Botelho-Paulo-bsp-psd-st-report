@@ -2,6 +2,8 @@
  
 \def\code#1{\texttt{#1}}
 
+\usepackage{lipsum}
+
 \usepackage{datetime}
 \usepackage{tikz}
 \usepackage{graphicx}
@@ -283,7 +285,9 @@
 % As a general rule, do not put math, special symbols or citations
 % in the abstract
 \begin{abstract}
-  Usability is a characteristic important to software that describes many things that can help attract more users. This paper represents the student's Bachelor Semester Project report. The report contains a scientific deliverable and a technical deliverable. The first one aims to answer how to measure usability in the context of mobile applications. A simple model will be given that allows a developer to measure the usability of their app in the development phase. In the second deliverable, the development of an Android app will be described. This application is made with usability in mind and thus follows some common guidelines found all over the Web.
+  % TODO: abstract
+
+  \lipsum[1][]
 \end{abstract}
 
 % no keywords
@@ -304,6 +308,8 @@
 
 % TODO: add the introduction
 
+This Bachelor Semester Project is all about finding important sentences in a text. The main objective of the project is to create a browser extension that highlights the most important information of an article's web page. Moreover, this project also addresses the topic of automatic text summarization, as well as extractive text summarization algorithms.
+
 
 \section{Project description}
 \subsection{Domains}
@@ -311,9 +317,13 @@
 
 % TODO: add the scientific domains
 
+\lipsum[][1-2]
+
 \subsubsection{Technical}
 
 % TODO: add the technical domains
+
+\lipsum[][1-2]
 
 \subsection{Targeted Deliverables}
 \label{sec-deliverables}
@@ -322,9 +332,43 @@
 
 % TODO: add the scientific deliverable description
 
+This BSP's scientific deliverable aims to answer the following research question:\\
+
+\textbf{How can we detect important sentences in a web document?}\\
+
+To help answer this question, we will need to answer the following secondary questions:\\
+
+\textbf{1. How can we automatically detect text blocks on a web page?}\\
+
+\textbf{2. How can we extract relevant sentences within a text block?}\\
+
+To answer our main scientific question, we will investigate the concept of automatic text summarization. Automatic text summarization is the technique of creating a shorter version of a text using a computer program. This shorter version of the text (i.e., the summary) contains the most relevant information of the original text.
+
+Automatic text summarization methods are very much needed to deal with the ever-increasing volume of text data available online, both to help identify relevant information and to consume relevant information more quickly. There are many reasons why one would need automatic text summarization. For example, summaries reduce reading time and should be less biased than summaries made by a human person \cite{torres2014automatic}.
+
+In general, there are two main kinds of text summarization techniques, extractive text summarization and abstractive text summarization. Extractive text summarization consists in selecting the most important parts of a text and extracting them to create a shorter summary of the same text. Abstractive text summarization consists in gathering the main ideas of a text and using those abstract ideas to generate a summary of the text, where the summary isn't just a copy of the old text, but actual new sentences.
+
+Given the scope of this BSP, our scientific deliverable will focus on extractive text summarization. There exist many approaches to extractive text summarization, like statistical approaches, lexical chain based approaches, graph-based approaches, cluster-based approaches, and fuzzy logic based approaches, among others.
+
+We will focus on graph-based text summarization, as it is commonly used by many algorithms to classify sentences by their importance on the source text. For example, Google's PageRank is a graph-based ranking algorithm used by Google to rank web pages \cite{page1999pagerank}. This algorithm is the basis of other well-known graph-based text summarization algorithms like TextRank \cite{mihalcea2004textrank} and LexRank \cite{erkan2004lexrank}.
+
+The graph-based method of text summarization is an unsupervised technique in which sentences or words are scored using a graph, therefore their convenience for this BSP. In a nutshell, the basic goal of graph-based methods is to extract the most relevant sentences from a block of text. Thus, the scientific deliverable will focus on explaining how graph-based text summarization algorithms work.
+
+To answer the secondary questions, the notion of text blocks should be explained. In the context of web pages, a text block is considered a group of paragraphs. Critically, we need to identify the most important text blocks in a web page (the main content) as well as unimportant text blocks, such as texts in the header or the footer of the page. Unimportant texts should not be considered for summarization.
+
+A key challenge is that automatic detection of the main text blocks on a web page is not reliable, since every web page has a different structure and layout. Thus, detecting blocks of text is a hard task. The scientific deliverable of this BSP will study this question more thoroughly. As there does not seem to be a trivial solution, we will try to find the best compromise solution.
+
 \subsubsection{Technical deliverable}
 
 % TODO: add the technical deliverable description
+
+The technical deliverable of this project focuses on creating a browser extension that detects the most important sentences on a specific web page and highlights them, so that the user only needs to read the highlighted sentences instead of the whole web page.
+
+A browser extension is a small software package that adds features and functions to a browser. Extensions are built using well-known web technologies such as HTML, CSS, and JavaScript. Extensions rely on their own set of APIs, which are browser-dependent. For example, they allow developers to change the browser's default behaviours or inject custom stylesheets of JavaScript content before a web page is loaded.
+
+The extension should be built using JavaScript and should work on the Google Chrome browser, given its large market share of 65-70\% \cite{netmarketshare} \cite{statcounter}, without breaking the functionality of existing websites. The extension will automatically highlight the most important sentences of an article or blog post in a specific web page.
+
+In short, the goal of this technical work is to implement text summarization techniques in a browser environment, while creating a simple extension that is easy to use and that works on most websites.
 
 \section{Prerequisites}
 % Describe in these sections the main scientific and technical knowledge that is required to be known by you before starting the project.
@@ -333,21 +377,28 @@
 
 % TODO: add a short introduction to the prerequisites
 
+The only required competency before starting to work on this Bachelor Semester Project is possessing enough knowledge about Web Technologies, such as HTML and the JavaScript programming language.
 
 \subsection{Scientific prerequisites}
 
 % TODO: add the scientific prerequisites
 
+\lipsum[][1-3]
 
 \subsection{Technical prerequisites}
 
 % TODO: add the technical prerequisites
+
+\lipsum[][1-3]
 
 \section{Scientific Deliverable}
 \label{sec-sci-production}
 \subsection{Requirements}
 
 % TODO: add the scientific requirements
+The scientific deliverable produced in this project consists in answering the question "How can we detect important sentences in a web document?".
+
+
 
 
 \subsection{Design}
@@ -369,7 +420,47 @@
 \label{sec-tech-production}
 \subsection{Requirements}
 
-% TODO: add the technical requirements
+% TODO: change this
+The requirements are the characteristics that are required of the completed technical deliverable.
+The software developed for the technical deliverable must meet a number of functional and non-functional requirements.
+
+\subsubsection{Functional Requirements}
+
+\begin{itemize}
+  \item Gathering the text on a web page.
+  \item Generating a summary of the gathered text.
+  \item Highlighting the important text on a web page.
+  \item Running at least on Google Chrome.
+\end{itemize}
+
+\vspace{0.4cm}
+\textbf{Gathering the text}
+
+The browser extension must be able to gather the text of any web page.
+The text is gathered by the browser extension by using.
+
+
+\vspace{0.4cm}
+\textbf{Generating a summary}
+
+The extension must allow the user to generate a summary of the text gathered from the web page.
+
+\vspace{0.4cm}
+\textbf{Highlighting the important text}
+
+The extension must be able to highlight the important text on the web page, based on the summary generated by the summarization algorithm.
+
+\subsubsection{Non-functional Requirements}
+\begin{itemize}
+  \item Providing a high-quality summary.
+  \item Maintaining the functionality of existing websites.
+\end{itemize}
+
+\vspace{0.4cm}
+\textbf{Running on Google Chrome}
+
+The browser extension must be able to run on Google Chrome.
+
 
 \subsection{Design}
 
