@@ -499,7 +499,7 @@ A high-quality summary should allow the user to quickly understand the content o
 \textbf{Maintaining the functionality of existing websites}
 
 The browser extension must not break the functionality of existing websites.
-Thus, if the user decides to use the extension on a website, all the website's features must remain functional. 
+Thus, if the user decides to use the extension on a website, all the website's features must remain functional.
 
 
 
@@ -508,7 +508,7 @@ Thus, if the user decides to use the extension on a website, all the website's f
 % TODO: finish the technical design
 
 This section explains the design of the application developed in the technical deliverable.
-The software is written using vsCode, although any other text editor would be enough for the task.
+The software is written using VS Code, although any other text editor would be enough for the task.
 The browser extension is written using HTML, CSS and JavaScript in conjunction to make the extension.
 
 \subsubsection{Libraries used}
@@ -519,52 +519,116 @@ This project mainly depends on 3 different sets of libraries to work:
   \item naiverank.js
 \end{itemize}
 
-% TODO: add a paragraph for each library describing the library and its purpose
+
 % TODO: insert missing ref
 Summary.js is "a lightweight paragraph summarizer library" that can be configured to appease to the user's preferences.
 It uses the LexRank algorithm to score sentences and gives the best scoring sentences back as a summary.
 
-% TODO: describe these 2
-Textrank.js
+Textrank.js is a library that can be used to rank sentences in a text. It uses the TextRank algorithm to rank sentences.
+It depends on the Pagerank.js library.
 
 
-Naiverank.js
+Naiverank.js is a library that can be used to rank sentences in a text. It uses the NaiveRank algorithm to rank sentences.
+Unlike the TextRank library, it does not have any dependencies.
 
 
 \subsubsection{Project Structure}
 
 An extension is basically a bundled package of different HTML, CSS and JavaScript files.
-This extension consists of 2 main parts: the content script and the pop-up.
+This extension consists of 3 main parts: the content script, the pop-up and the manifest file.
 
 \vspace{0.4cm}
 \textbf{Content Script}
 
-%TODO: describe the content script, its role in the extension and how it interacts with the extension/web page
+A content script is a file that runs in the context of a web page.
+A content script can read the details of the web pages visited by the browser and make modifications to them.
+It has access to the same Document Object Model APIs as normal injected scripts, while also having access to special browser extension APIs.
+
+The extension makes use of this content script to be able to:
+
+\begin{itemize}
+  \item Gather the text from the current web page
+  \item Highlight the most important sentences in the current web page
+\end{itemize}
 
 \vspace{0.4cm}
 \textbf{Pop-up}
 
-%TODO: describe the pop-up, its purpose, the files it contains and how it interacts with the extension/web page
+A pop-up is an HTML document that is displayed to the user when they click on the extension icon.
+A pop-up is comparable to a web page in that it can include links to stylesheets and script tags, but it does not support inline JavaScript.
+In the end, our pop-up consists of 3 different files:
+
+\begin{itemize}
+  \item popup.html
+  \item popup.js
+  \item popup.css
+\end{itemize}
+
+In our extension, popup.html provides the user with a way of interacting with the extension functionalities and settings.
+It does this by acting as a user interface for the browser extension.
+It allows the user to select which algorithm to use when generating a summary of the web page, and, depending on the algorithm, to customize the parameters of the generated summary, like the number of sentences included in it.
+
+Moreover, the popup.js file contains all the JavaScript code to make the pop-up work as intended.
+It makes use of the external libraries previously described to generate a summary of the text gathered by the extension.
+
+Finally, the popup.css file contains the CSS style rules to properly display the pop-up to the user.
 
 \vspace{0.4cm}
 \textbf{Manifest file}
 
-%TODO: describe the manifest file
+Any extension needs a manifest file to be able to work.
+The manifest file provides basic metadata such as the extension's name, version number, and the permissions it requires.
+It also contains references to other files in the extension such as the extension icon and, more importantly, defines where the content script is able to run.
+
+
+\subsubsection{Script interoperability}
+
+Until now, we have described the different parts of our browser extension.
+However, because of the way the extension has been designed, we must talk about how the scripts interact with each other to provide the expected functionalities of the extension to the user.
+
+As previously mentioned, content scripts run in the context of a web page rather than the extension.
+In the other hand, our pop-up script runs in the context of the pop-up and cannot interact with the current web page as they're running in separate environments thanks to our browser.
+Since the content script is the one in charge of gathering the text from the web page, the pop-up script cannot do anything without the text that the content script gathers from the web page.
+Because of this, we require a way for both of the scripts to communicate with each other.
+
+"Message passing" is used to execute communication between extensions and their content scripts.
+Thanks to "message passing", extension components, such as the pop-up script and the content script, can listen for and reply to messages sent by one another using the browser's extension APIs.
+
+In our extension, the content script uses "message passing" to send the text to be summarized to the pop-up.
+In return, the pop-up sends the generated summary back to the content script, allowing the content script to highlight the important sentences in the web page.
 
 
 \subsubsection{User Interface}
 
-%TODO: describe the user interface of the extension
+%TODO: add missing images
 
+The pop-up's UI is defined using HTML and CSS.
+The user interface contains three buttons, one for each of the used summarization algorithms.
+When the user clicks in one of the buttons, an input box appears that allows the user to select how many sentences should be in the summary.
+
+Moreover, if the user selects the LexRank algorithm, an extra input box is displayed enabling the user to specify the amount of keywords to factor when generating a summary.
+The user can detect the most important sentences in the web page by clicking the "Detect" button.
+
+Finally, there are two radio buttons bellow the "Detect" button which allow the user to select the highlight mode for the extension.
+The first mode highlights individual sentences, while the second one tries to highlight the entire paragraph where an important sentence is found.
 
 % Maybe add a subsection for the highlight functionality?
 
 \subsection{Production}
 
-% TODO: add the technical production
-
+This section describes the production of the browser extension developed in the technical deliverable.
+The production of the extension involves three parts: the creation and development of the extension different components, the implementation of the user interface as detailed in the design section before, and the implementation of the features detailed in the requirements.
 
 \subsubsection{Project Development}
+
+% TODO: something's missing here
+
+As stated in the design section, the extension is written using VS Code, since there is no need for a fully fledged IDE in this project. Any other basic text editor could also be used instead of VS Code. The extension can be loaded in Google Chrome as an unpacked extension (a folder containing the extension files) in the browser extension settings.
+
+As previously stated in the design, the project consists of three main parts: the pop-up, the content script and the manifest.
+The main code of the project is contained within the \code{content\_script.js} and the \code{popup.js} files.
+
+% TODO: finish this section (should be relatively easy)
 
 \subsubsection{Content Script}
 
@@ -572,8 +636,19 @@ This extension consists of 2 main parts: the content script and the pop-up.
 
 \subsubsection{Pop-up}
 
+% How the pop-up generates the summary and user interface
+
 \subsubsection{Manifest file}
 
+% extension metadata
+
+\subsubsection{Message passing}
+
+% function that allows the content script to send messages to the pop-up
+
+\subsubsection{Non-required features}
+
+% TODO: maybe talk about extra features
 
 \subsection{Assessment}
 
@@ -596,7 +671,7 @@ I declare that I am aware of the following facts:
 \begin{itemize}
   \item As a student at the University of Luxembourg I must respect the rules of intellectual honesty, in particular not to resort to plagiarism, fraud or any other method that is illegal or contrary to scientific integrity.
   \item My report will be checked for plagiarism and if the plagiarism check is positive, an internal procedure will be started by my tutor. I am advised to request a pre-check by my tutor to avoid any issue.
-  \item As declared in the assessment procedure of the University of Luxembourg, plagiarism is committed whenever the source of information used in an assignment, research report, paper or otherwise published/circulated piece of work is not properly acknowledged. In other words, plagiarism is the passing off as one's own the words, ideas or work of another person, without attribution to the author. The omission of such proper acknowledgement amounts to claiming authorship for the work of another person. Plagiarism is committed regardless of the language of the original work used. Plagiarism can be deliberate or accidental.
+  \item As declared in the assessment procedure of the University of Luxembourg, plagiarism is committed whenever the source of information used in an assignment, research report, paper or otherwise published/circulated piece of work is not properly acknowledged. In other words, plagiarism is the passing off as one's own the words, ideas or work of another person, without attribution to the author. The omission of such proper acknowledgment amounts to claiming authorship for the work of another person. Plagiarism is committed regardless of the language of the original work used. Plagiarism can be deliberate or accidental.
         Instances of plagiarism include, but are not limited to:
         \begin{enumerate}
           \hbadness=10000
